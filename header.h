@@ -12,7 +12,7 @@ const unsigned char vector_hash[21] = /*!hash!*/;
 
 // convenience functions
 // Note: this makes a copy of x
-int sil_copyvector(sil_State *S, size_t n, const double *x) {
+static inline int sil_copyvector(sil_State *S, size_t n, const double *x) {
     size_t len = 8*n;
     vector *w = (vector *)malloc(sizeof(vector)+len);
     if(w == NULL)
@@ -27,6 +27,6 @@ int sil_copyvector(sil_State *S, size_t n, const double *x) {
 }
 
 // This takes over responsibility for freeing v
-int sil_pushvector(sil_State *S, vector *v) {
+static inline int sil_pushvector(sil_State *S, vector *v) {
     return sil_newuserdata(S, vector_hash, v);
 }
