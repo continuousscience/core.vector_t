@@ -8,7 +8,7 @@ typedef struct {
     double x[0];
 } vector;
 
-const unsigned char vector_hash[21] = /*!hash!*/;
+const unsigned char vector_hash[HASH_SIZE+1] = /*!hash!*/;
 
 // convenience functions
 // Note: this makes a copy of x
