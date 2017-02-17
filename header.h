@@ -8,22 +8,18 @@ typedef struct {
     double x[0];
 } vector;
 
-const unsigned char vector_hash[HASH_SIZE+1] = /*!hash!*/;
+static const unsigned char vector_hash[HASH_SIZE+1] = /*!hash!*/;
 
 // convenience functions
 // Note: this makes a copy of x
-static inline int sil_copyvector(sil_State *S, size_t n, const double *x) {
+static inline vector *sil_copyvector(sil_State *S, size_t n, const double *x) {
     size_t len = 8*n;
     vector *w = (vector *)malloc(sizeof(vector)+len);
     if(w == NULL)
-        return 1;
+        return w;
     w->n = n;
     memcpy(w->x, x, len);
-    if(sil_newuserdata(S, vector_hash, w)) {
-        free(w);
-        return 1;
-    }
-    return 0;
+    return w;
 }
 
 // This takes over responsibility for freeing v

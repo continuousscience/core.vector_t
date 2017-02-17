@@ -32,6 +32,7 @@ void serialize(SWriter *s, const vector *v) {
 void parse(sil_State *S, const uint8_t *buf, size_t len) {
     uint32_t n;
     unsigned k = read_uint32(&n, buf, len);
+    vector *v;
     buf += k;
     len -= k;
     if(len != 8*n) {
@@ -39,13 +40,15 @@ void parse(sil_State *S, const uint8_t *buf, size_t len) {
                 "but contains %d bytes.\n", n, len);
         return;
     }
-    if(sil_copyvector(S, n, (double *)buf)) {
+    if( (v = sil_copyvector(S, n, (double *)buf)) == NULL) {
         sil_err(S, "Error parsing vector.");
     }
+    sil_pushvector(S, v);
+    return;
 }
 
 void handler(vector *v) {
-    printf("Called handler on %p.\n", v->x);
+    //printf("Called handler on %p.\n", v->x);
 }
 
 void copy(sil_State *S) {
