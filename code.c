@@ -49,6 +49,7 @@ void parse(sil_State *S, const uint8_t *buf, size_t len) {
 
 void handler(vector *v) {
     //printf("Called handler on %p.\n", v->x);
+    free(v);
 }
 
 void copy(sil_State *S) {
